@@ -11,7 +11,7 @@
 
 ```
 
-Its simple weather application which gets us the current weather of particular location & forecast details of the same location.
+Its simple weather application developved using [React](https://reactjs.org/), this application shows us current weather for a particular location & its forecast details.
 
 This application uses the [openweathermap's](https://openweathermap.org/api) api services for querying the weather details.
 
