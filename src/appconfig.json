@@ -12,5 +12,6 @@
             "lat": 39.084
         }
     },
-    "unit" : "imperial"
+    "unit" : "imperial", 
+    "refreshEvery" : 300000
 }

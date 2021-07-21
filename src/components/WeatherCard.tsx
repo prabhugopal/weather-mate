@@ -5,6 +5,7 @@ import ForecastCard from './ForecastCard';
 import appConfig from '../appconfig.json';
 import  { utils }  from '../services/utils'
 
+const DEFAULT_REFRESH_RATE = 300000
 
 const LocationCard: FC<Location> = (props: Location) => {
      if(props.city.state) {
@@ -35,6 +36,8 @@ const TimeCard: FC<any> = (props: any) => {
 
 const ConditionCard: FC<any> = (props: any) => {
     const imageUrl = appConfig.iconUrl + props.weather.icon + '@2x.png'
+
+    console.log("Main >> imageUrl :: " + imageUrl )
 
     return <div className="flex flex-row items-end p-0">    
                 <div className="inline align-bottom">
@@ -83,16 +86,27 @@ const DegreeCard: FC<any> = (props: any) => {
 const WeatherCard: FC<Location> = (props: Location) => {
     const [current, setCurrent] = useState(  { dt: 0, temp : 0.0, weather:[{icon: "", main : "", description:""}]});
     const [forecast, setForecast] = useState([]);
-    const location : Location = props 
+
     useEffect(() =>  {
-        getTemprature(location)
-        .then(
-            data=> {
-                setCurrent(data.current)
-                console.log(data.current.weather[0].main)
-                setForecast(data.daily)
-            }
-        )
+        const location : Location = props 
+        const refreshTemprature = async () => {
+            await getTemprature(location)
+            .then(
+                data=> {
+                    setCurrent(data.current)
+                    console.log(data.current.weather[0].main)
+                    setForecast(data.daily)
+                }
+            )
+        }
+
+        /** Refresh every 5 mins default, configurable **/
+
+        refreshTemprature();
+        const refreshRate = (appConfig.refreshEvery < DEFAULT_REFRESH_RATE) ? DEFAULT_REFRESH_RATE : appConfig.refreshEvery;
+        const interval = setInterval(refreshTemprature, refreshRate);
+        return() => clearInterval(interval)
+
     }, [])
     
     return <div>

@@ -7,7 +7,7 @@ export function getTemprature(location: Location) {
     const lat = location.city.coord.lat
     const queryString = `?lat=${lat}&lon=${lon}&units=${appConfig.unit}&appid=${appConfig.apiKey}`
 
-    console.log("Fetching for " + location.city.name)
+    console.log("Fetching for " + location.city.name + " @ " + new Date().toLocaleTimeString())
 
     return fetch(appConfig.apiUrl+queryString)
       .then(response => {
