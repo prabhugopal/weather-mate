@@ -1,4 +1,3 @@
-# WeatherMate
 
 ```scala
 
@@ -12,10 +11,19 @@
 
 ```
 
-It
+Its simple weather application which gets us the current weather of particular location & forecast details of the same location.
+
+This application uses the [openweathermap's](https://openweathermap.org/api) api services for querying the weather details.
+
+This application comes with a configuration file **appconfig.json** to enable us configure some of properties of the application, like location, weather unit, & api-key.  
 
 ## Build instructions
 Make sure you have  **node** installed in your machine. If not check [here](https://nodejs.org/en/)
+
+
+### `npm install`
+
+Installs the dependencies requrired to run this application.
 
 
 ### `npm start`
