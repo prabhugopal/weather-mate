@@ -84,7 +84,16 @@ const DegreeCard: FC<any> = (props: any) => {
 }
 
 const WeatherCard: FC<Location> = (props: Location) => {
-    const [current, setCurrent] = useState(  { dt: 0, temp : 0.0, weather:[{icon: "", main : "", description:""}]});
+    const [current, setCurrent] = useState(  { dt: 0, 
+                                               temp : 0.0, feels_like : 0.0, 
+                                               humidity: 0, 
+                                               wind_speed:0, 
+                                               pressure:0,
+                                               uvi: 0,
+                                               visibility: 0,
+                                               sunrise: 0,
+                                               sunset: 0,
+                                               weather:[{icon: "", main : "", description:""}]});
     const [forecast, setForecast] = useState([]);
 
     useEffect(() =>  {
@@ -115,12 +124,44 @@ const WeatherCard: FC<Location> = (props: Location) => {
                         <LocationCard city = {props.city} />
                         <TimeCard time = {current.dt} />
                     </div>
-                    <ConditionCard weather = {current.weather[0]} />
-                    <TemperatureCard temp = {current.temp} />        
+                    <div className="grid grid-cols-3 border-0 p-4">
+                        <div className="border-0 text-white">
+                            <ConditionCard weather = {current.weather[0]} />
+                            <TemperatureCard temp = {current.temp} />      
+                        </div>
+                        <div className="shadow-2xl px-4 py-10 text-white text-opacity-70">
+                            <div className="grid grid-rows-4 grid-cols-2 gap-4 text-sm">
+                                <div>
+                                    <div className="border-b-2 border-opacity-10 ">Feels Like:  {Math.floor(current.feels_like)}</div>
+                                </div>
+                                <div>
+                                    <div className="border-b-2 border-opacity-10 ">Humidity:  {current.humidity}%</div>
+                                </div>
+                                <div>
+                                    <div className="border-b-2 border-opacity-10 ">Wind:  {utils.MisUtils.getWind(current.wind_speed)}</div>
+                                </div>
+                                <div>
+                                    <div className="border-b-2 border-opacity-10 ">Pressure:  {utils.MisUtils.getPressure(current.pressure)}</div>
+                                </div>
+                                <div>
+                                    <div className="border-b-2 border-opacity-10 ">Visibility:  {utils.MisUtils.getVisibility(current.visibility)}</div>
+                                </div>
+                                <div>
+                                    <div className="border-b-2 border-opacity-10 ">UV Index:  {current.uvi}</div>
+                                </div>
+                                <div>
+                                    <div className="border-b-2 border-opacity-10 ">Sunrise:  {utils.TimeUtils.getDate(current.sunrise).toLocaleTimeString()}</div>
+                                </div>
+                                <div>
+                                    <div className="border-b-2 border-opacity-10 ">Sunset:  {utils.TimeUtils.getDate(current.sunset).toLocaleTimeString()}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div className="border-1 border-blue-200 border-opacity-40 px-4 py-10 bg-gradient-to-r from-green-300 to-blue-400 bg-opacity-90	">
+                <div className="border-1 border-blue-200 border-opacity-40 px-4 py-10 bg-gradient-to-r from-green-300 to-blue-400 bg-opacity-90	shadow-2xl">
                     <div className="border-t-2 border-purple-100 border-opacity-40 ">
-                        <div className=" h-4"></div>
+                        <div className="h-4"></div>
                         <div><h3 className="text-3xl">Forecast</h3></div>
                         <div className=" h-4"></div>
                         <ForecastCard temps = {forecast} />
