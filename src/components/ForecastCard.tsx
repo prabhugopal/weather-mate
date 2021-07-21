@@ -15,17 +15,25 @@ const DailyCard: FC<any> = (props: any) => {
                 <div className="h-2 border-b-2 border-indigo-100 border-opacity-40"></div>
                 <div className="grid lg:grid-cols-2 py-3">
                     <div className="flex flex-row"> 
-                        <div className="text-xl text-opacity-100 font-black	">&#710;
+                        <div className="h-4 text-2xl text-opacity-100 font-black	">&#710;
                         </div>
                         <div className="text-opacity-100 text-red-700  py-3">
-                            {props.data.temp.max}
+                            {Math.floor(props.data.temp.max)}
+                        </div>
+                        <div className="text-opacity-100 text-red-700">
+                            <span className="text-xs text-left text-top">o</span>
                         </div>
                     </div>
                     <div className="flex flex-row">
-                        <div className="text-xl text-opacity-100 font-black	">
+                        <div className="h-4 text-2xl text-opacity-100 font-black	">
                            &#711; 
                         </div>
-                        <div className="text-opacity-50 text-blue-700  py-3">{props.data.temp.min}</div>
+                        <div className="text-opacity-50 text-blue-700  py-3">
+                            {Math.floor(props.data.temp.min)}
+                        </div>
+                        <div className="text-opacity-50 text-blue-700">
+                            <span className="text-xs text-left text-top">o</span>
+                        </div>
                     </div>
                 </div>
                 <div>
